@@ -1,0 +1,9 @@
+.productCardStyle{
+  border: 1px solid red;
+  background-color: blue;
+  margin: 20px;
+  padding: 10px 5px;
+  height: 300px;
+  border-radius: 10px;
+  cursor: pointer;
+}
