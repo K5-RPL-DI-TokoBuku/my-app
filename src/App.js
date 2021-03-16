@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { AddBook } from './pages/';
 
 const App = () => {
 
@@ -7,7 +8,7 @@ const App = () => {
     <div>
 
       <p>Hello World!</p>
-      
+      <AddBook />
     </div>
   );
 }
