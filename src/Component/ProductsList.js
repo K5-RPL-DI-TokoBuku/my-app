@@ -1,40 +1,50 @@
-import React from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import { productService } from '../services';
+import { Link } from "react-router-dom";
+import { convertToDuit } from '../utils/functions';
 import './ProductsList.css';
 
-// const ProductCard = ({e}) => {
-//   console.log(e.title)
-//   return (
-//     <Col xs={6} sm={6} md={4} lg={3}>
-//       <div className="productCardStyle">
-//         <div>
-          
-//         </div>
-//         <h3>{e.title}</h3>
-//       </div>
-//     </Col>
-//   );
-// }
 
-const ProductsList = ({data}) => {
+
+const ProductsList = () => {
+  const [products, setProducts] = useState("")
+
+  useEffect(()=>{
+    productService
+      .getProducts()
+      .then((res) => {setProducts(res.products)})
+      .catch(err => console.log(err))
+      .finally(()=> console.log('Fetc api'))
+  }, [])
+
   return (
     <div>
       <Container>
         <Row>
-          {data && data.map((e) => {
+          {products && products.map((e) => {
             // return <ProductCard e={e} />;
+            const to = `/products/${e._id}`
+            const toCart = `/cart`
+
             return (
               <Col xs={6} sm={6} md={4} lg={3}>
                 <Card style={{ marginBottom: '20px' }}>
                   <div style={{height: '160px', overflow: 'hidden'}}>
-                    <Card.Img variant="top" src={e.image_url} />
+                    <Card.Img variant="top" src={e.image_link} />
                   </div>
                   <Card.Body>
-                    <Card.Title>{e.title}</Card.Title>
+                    <div style={{minHeight: '60px'}}>
+                      <Card.Title>{e.name}</Card.Title>
+                    </div>
                     <Card.Text>
-                      {e.price}
+                      Rp. {convertToDuit(e.price)}
                     </Card.Text>
-                    <Button variant="primary">ADD TO CART</Button>
+                    <div style={{display:'flex', justifyContent: 'space-between'}}>
+                      <Link style={{ borderRadius: '5px', padding: '5px 10px', backgroundColor: 'blue', color: 'white'}} to={to}>DETAIL</Link>
+                      <Link style={{ borderRadius: '5px', padding: '5px 10px', backgroundColor: 'blue', color: 'white'}} to={toCart} >ADD TO CART</Link>
+                      {/* <Button variant="primary">DETAIL</Button> */}
+                    </div>
                   </Card.Body>
                 </Card>
               </Col>

@@ -9,6 +9,7 @@ function getTokenAuth() {
 }
 
 const createAxiosInterceptor = (url) => {
+  console.log(url, 'Haiiklas')
   const axiosCreate = axios.create({
     baseURL: url,
     headers: {
@@ -33,6 +34,9 @@ const createAxiosInterceptor = (url) => {
   return axiosCreate;
 };
 
-const BaseService = createAxiosInterceptor(process.env.REACT_APP_API);
+
+const BaseService = createAxiosInterceptor('http://localhost:3001');
+// const BaseService = createAxiosInterceptor(process.env.REACT_APP_API);
+
 
 export default BaseService;

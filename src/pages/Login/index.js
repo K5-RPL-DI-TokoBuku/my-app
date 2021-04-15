@@ -1,71 +1,71 @@
 import React, { useState } from "react";
 import "./style.css";
 import { image1 } from "../../assets/index";
-import { Form, Button, Container, Row, Col, Image, Navbar, Nav, NavDropdown, FormControl } from "react-bootstrap/";
-const axios = require("axios");
+import { Form, Button, Container, Row, Col, Image,  Alert } from "react-bootstrap/";
+import { userService } from '../../services';
+import { setCookie } from '../../utils/cookie';
 
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [info, setInfo] = useState("")
+
+  const handleHideInfo = () => {
+    setInfo(false)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submit", email, password, "line 11");
-    axios
-      .post("http://localhost:3001/auth/login", {
+    
+
+    if (email && password){
+      const data = {
         email,
-        password,
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        console.log("Selesai Fetch");
-        setEmail("");
-        setPassword("");
-      });
+        password
+      }
+      userService
+        .loginUser(data)
+        .then((response) => {
+          console.log(response);
+          setInfo("success")
+          setEmail("");
+          setPassword("");
+
+          const cookieToken = response.token;
+            const cookieUser = {
+              username: response.user,
+              ID: response.ID,
+            };
+            setCookie('userData', JSON.stringify(cookieUser), 10000);
+            setCookie('token', JSON.stringify(cookieToken), 10000);
+
+          var delayInMilliseconds = 1000; //1 second
+
+          setTimeout(function() {
+            window.location.replace('/');
+            //your code to be executed after 1 second
+          }, delayInMilliseconds);
+
+        })
+        .catch((err) => {
+          console.log(err);
+          setInfo("error")
+        })
+        .finally(() => {
+          console.log("Selesai Fetch");
+        });
+    }
+      
   };
 
   return (
     <div className="loginPageStyle">
-      <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">Toko Buku</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="#home">Shope</Nav.Link>
-            <Nav.Link href="#link">About</Nav.Link>
-            <NavDropdown title="Teams" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">
-                Ichlasul Amal
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Nabila Sumarno
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">
-                Irfan Budi Prakoso
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Imaduddin</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Github Repo
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-          <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button variant="outline-success">Search</Button>
-          </Form>
-        </Navbar.Collapse>
-      </Navbar>
       <Container>
         <Row className="styleRow">
           <Col xs={12} md={8}>
-            <h3>Whats Fitur</h3>
+            <h3>Whats up!!</h3>
             <div>
               <Image src={image1} rounded />
               <div>
@@ -73,23 +73,38 @@ const Login = () => {
                   <p>Bangalore, India</p>
                   <p>3 Maret</p>
                 </div>
-                <h4>Skill yang Dibutuhkan oleh Seorang Software Engineer ?</h4>
+                {/* <h4>Skill yang Dibutuhkan oleh Seorang Software Engineer ?</h4> */}
               </div>
             </div>
           </Col>
           <Col xs={6} md={4}>
+            <div>
+              {info && (
+                <div style={{cursor: 'pointer'}} onClick={handleHideInfo}>
+                  <Alert variant={info === "success" ? "success" : "danger" }>
+                    {info === "success" ? "Success Login" : "Username and Password salah!" }
+                  </Alert>
+                </div>
+              )}
+            </div>
             <h3>Login Form</h3>
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                  type="email"
-                  placeholder="Enter email"
-                />
+                <div style={{display:'flex'}}>
+                  <Form.Control
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                    type="email"
+                    placeholder="Enter email"
+                  />
+                  {email && <Button variant="outline-danger" style={{borderRadius: '50%', marginLeft: '10px'}} onClick={(e) => {
+                    setEmail("")
+                  }}>X</Button>}
+                  
+                </div>
                 <Form.Text className="text-muted">
                   We'll never share your email with anyone else.
                 </Form.Text>
