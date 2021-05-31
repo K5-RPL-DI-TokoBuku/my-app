@@ -9,14 +9,12 @@ function getTokenAuth() {
 }
 
 const createAxiosInterceptor = (url) => {
-  console.log(url, 'Haiiklas')
   const axiosCreate = axios.create({
     baseURL: url,
     headers: {
       Accept: "application/json",
       "Accept-Language": "es",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${getTokenAuth()}`,
     },
   });
   axiosCreate.interceptors.response.use(

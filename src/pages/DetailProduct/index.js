@@ -39,7 +39,7 @@ const DetailProduct = () =>{
                     <Row style={{padding: '20px 0'}}>
                         <Col lg={8}>
                         <Breadcrumb>
-                            <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+                            <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
                             <Breadcrumb.Item href="/products">
                                 Products
                             </Breadcrumb.Item>
@@ -55,10 +55,10 @@ const DetailProduct = () =>{
                                     {/* <Card.title>{product.name}</Card.title> */}
                                     <h4><b>{product.name}</b></h4>
                                     <p>Jumlah Product : {product.quantity}</p>
-                                    <h1><b>Rp. {convertToDuit(product.price)}</b></h1>
+                                    <h1><b>Rp. {convertToDuit(fakePrice(product.price))}</b></h1>
                                     <div style={{display: 'flex'}}>
                                         <p style={{marginRight: '10px',backgroundColor: '#ffc0cb', color: '#cf0029', padding: '5px', borderRadius: '10px'}}>21 %</p>
-                                        <h3 style={{color:'#ae6467'}}><s>Rp. {convertToDuit(fakePrice(product.price))}</s></h3>
+                                        <h3 style={{color:'#ae6467'}}><s>Rp. {convertToDuit(product.price)} </s></h3>
                                     </div>
                                     <div>
                                         <Card>
@@ -117,8 +117,8 @@ const DetailProduct = () =>{
                                                     <h4>Subtotal</h4>
                                                 </div>
                                                 <div>
-                                                    <p style={{margin: 0}}><s>Rp.{convertToDuit(fakePrice(product.price))}</s></p>
-                                                    <h4><b>Rp.{convertToDuit(product.price)}</b></h4>
+                                                    <p style={{margin: 0}}><s>Rp. {convertToDuit(product.price)}</s></p>
+                                                    <h4><b>Rp. {convertToDuit(fakePrice(product.price))}</b></h4>
                                                 </div>
                                             </div>
                                             <Button  variant='primary' block><b>+</b> Keranjang</Button>

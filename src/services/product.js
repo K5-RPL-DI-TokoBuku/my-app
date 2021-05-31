@@ -14,8 +14,8 @@ const getProduct = (id) => {
     return BaseService.get(API.GET_PRODUCT(id))
 }
 
-const deleteProduct = (id) => {
-    return BaseService.delete(API.GET_PRODUCT(id))
+const deleteProduct = (id, token) => {
+    return BaseService.delete(API.DELETE_PRODUCT(id))
 }
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */

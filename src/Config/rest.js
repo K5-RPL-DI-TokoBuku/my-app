@@ -6,5 +6,5 @@ export default {
   GET_PRODUCTS: "/product/all",
   GET_PRODUCT: (id)=>{
     return `/product/${id}`
-  },
+  }
 };
