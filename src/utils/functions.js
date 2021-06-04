@@ -7,5 +7,5 @@ export const convertToDuit = (bilangan) => {
 }
 
 export const fakePrice = (price) => {
-    return price - (price*21/100)
+    return price - (price*15/100)
 }

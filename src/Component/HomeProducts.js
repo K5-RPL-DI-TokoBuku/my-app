@@ -6,7 +6,7 @@ const HomeProducts = () => {
     return (
         <div style={{ marginBottom: "20px" }}>
             <Container>
-                <Nav fill variant="tabs" defaultActiveKey="/home">
+                {/* <Nav fill variant="tabs" defaultActiveKey="/home">
                     <Nav.Item>
                     <Nav.Link eventKey="link-1">NEW</Nav.Link>
                     </Nav.Item>
@@ -19,7 +19,7 @@ const HomeProducts = () => {
                     <Nav.Item>
                     <Nav.Link eventKey="link-4">DEALS OF THE WEEK</Nav.Link>
                     </Nav.Item>
-                </Nav>
+                </Nav> */}
                 <br></br>
                 <ProductsList/>
             </Container>

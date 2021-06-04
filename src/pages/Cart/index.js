@@ -9,12 +9,11 @@ const TableKeranjang = () => {
   const [change, setChange] = useState(false)
   const [data_cart, setData] = useState([])
 
-  
-
   useEffect(() => {
     const url = 'http://localhost:3001/auth/cart'
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSWNobGFzdWwgQW1hbCIsImVtYWlsIjoiaWNobGFzdWwwODk5QGdtYWlsLmNvbSIsInVzZXJJRCI6IjYwNzU5YTZkYWEyZTdjM2E2YzM2NzVjYiIsImlhdCI6MTYyMjQyNjY2NX0.ZPBOUDER8LZLGWl1uFB8wabrpX6TCPBF2qjIt90KGwY'
     axios
-    .get(url, {headers: {token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSWNobGFzdWwgQW1hbCIsImVtYWlsIjoiaWNobGFzdWwwODk5QGdtYWlsLmNvbSIsInVzZXJJRCI6IjYwNzU5YTZkYWEyZTdjM2E2YzM2NzVjYiIsImlhdCI6MTYyMjQyNjY2NX0.ZPBOUDER8LZLGWl1uFB8wabrpX6TCPBF2qjIt90KGwY'}})
+    .get(url, {headers: {token}})
     .then(res=>{
       setData(res.data.cart)
       console.log(res.data.cart)
@@ -22,6 +21,9 @@ const TableKeranjang = () => {
     })
     .catch(err=>{
       console.log(err)
+    })
+    .finally(()=>{
+      console.log('Fetch To get data cart')
     })
   }, [change])
 
@@ -66,9 +68,6 @@ const TableKeranjang = () => {
                 const {image_link,name,price, quantity, _id } = e
                 return (
                   <tr>
-                    {/* <td>
-                      <Image image={image_link}/>
-                    </td> */}
                     <td>{i+1}</td>
                     <td>{name}</td>
                     <td>Rp. {convertToDuit(price)}</td>
@@ -92,15 +91,7 @@ const TableKeranjang = () => {
 const Cart = () => {
   return (
     <div>
-      <Breadcrumb>
-          <Container style={{display: 'flex', flexDirection: 'row'}}>
-            <Breadcrumb.Item href='/'>Home</Breadcrumb.Item>
-            <Breadcrumb.Item href="/cart"  active>
-                Products
-            </Breadcrumb.Item>
-
-          </Container>
-      </Breadcrumb>
+      
       <Container>
         <TableKeranjang />
       </Container>
@@ -110,88 +101,4 @@ const Cart = () => {
   
 }
 
-export default Cart
-
-
-
-// return (
-//   <div>
-//     {/* <Header /> */}
-//     <div style={{ padding: "20px 0" }}>
-//       <Container>
-//         {pembayaran ? (
-//           <ComponentCart2
-//             data_cart={data_cart}
-//             handleNextToFormCheckout={handleNextToFormCheckout}
-//             next={next}
-//             costShiping={costShiping}
-//             handleNext={handleNext}
-//             handleCostShipping={handleCostShipping}
-//           />
-//         ) : (
-//           <ComponentCart1
-//             data_cart={data_cart}
-//             handleNextToFormCheckout={handleNextToFormCheckout}
-//             next={next}
-//             costShiping={costShiping}
-//             handleNext={handleNext}
-//             handleCostShipping={handleCostShipping}
-//           />
-//         )}
-//       </Container>
-//     </div>
-//   </div>
-// );
-
-  // Semua data tentang transaksi disimpan disini.
-  // Hati hati ketika ngebind data, nanti bisa di add redux klo udah komplek, untuk semntara pake yang bisa jalan dulu
-  // const data_cart = [
-  //   {
-  //     title: "Hai1",
-  //     status: "NEW",
-  //     price: "Rp 200.000",
-  //     image_url:
-  //       "https://images.unsplash.com/photo-1523742534376-dc6574ed1bd9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80",
-  //   },
-  //   {
-  //     title: "Hai1",
-  //     status: "NEW",
-  //     price: "Rp 200.000",
-  //     image_url:
-  //       "https://images.unsplash.com/photo-1518226203301-8e7f833c6a94?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80",
-  //   },
-  //   {
-  //     title: "Hai1",
-  //     status: "NEW",
-  //     price: "Rp 200.000",
-  //     image_url:
-  //       "https://images.unsplash.com/photo-1601814923439-619b33ffa31d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-  //   },
-  // ];
-
-  // const [pembayaran, setPembayaran] = useState(false)
-  // const [next, setNext] = useState(false);
-  // const [costShiping, setCostShiping] = useState(false);
-
-  // const useEffect(() => {
-    
-  // }, [])
-
-  // const handleNext = (e) => {
-
-  //   if (!costShiping) {
-  //     alert("Pilih kota dulu");
-  //     setNext(false)
-  //   } else {
-  //     setNext(e);
-  //   }
-    
-  // };
-
-  // const handleNextToFormCheckout = (kondisi) => {
-  //   setPembayaran(kondisi)
-  // }
-
-  // const handleCostShipping = (e) => {
-  //   setCostShiping(e)
-  // }
+export default Cart;

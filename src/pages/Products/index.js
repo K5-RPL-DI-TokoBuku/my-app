@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {productService} from '../../services';
-import { Table, Button, Alert } from 'react-bootstrap';
+import { Table, Button, Alert, Container } from 'react-bootstrap';
 import { Link} from "react-router-dom";
 import { getCookie } from "../../utils/cookie";
+import { convertToDuit } from '../../utils/functions';
 const axios = require('axios');
 
 
@@ -11,7 +12,7 @@ function getTokenAuth() {
       return JSON.parse(getCookie("token")).value;
     }
     return "";
-  }
+}
 
 
 const Products = () =>{
@@ -21,19 +22,21 @@ const Products = () =>{
     const [info, setInfo] = useState('')
 
     const handleHideInfo = () => {
-        console.log("Brooo")
         setInfo(false)
-      }
+    }
 
     useEffect(()=>{
-        productService.getProducts().then((res) => {setProducts(res.products)}).catch(err => console.log(err)).finally(()=> console.log('Fetc api'))
+        productService
+            .getProducts()
+            .then((res) => {setProducts(res.products)})
+            .catch(err => console.log(err))
+            .finally(()=> console.log('Fetc api'))
     }, [change])
-
-
 
     const handleDelete = (id) => {
         const my_token = getCookie('token')
         const url = `http://localhost:3001/product/${id}`
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSWNobGFzdWwgQW1hbCIsImVtYWlsIjoiaWNobGFzdWwwODk5QGdtYWlsLmNvbSIsInVzZXJJRCI6IjYwNzU5YTZkYWEyZTdjM2E2YzM2NzVjYiIsImlhdCI6MTYyMjQyNjY2NX0.ZPBOUDER8LZLGWl1uFB8wabrpX6TCPBF2qjIt90KGwY'
 
         function getCookie(cname) {
             var name = cname + "=";
@@ -49,115 +52,106 @@ const Products = () =>{
               }
             }
             return "";
-          }
-        // console.log(getCookie('token'))
+        }
+
         if (my_token) {
-
-            console.log(my_token)
-            // axios.get(url, {headers: {'token': my_token }}).then(res => console.log(res))
-            axios.delete(url, {headers: {'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSWNobGFzdWwgQW1hbCIsImVtYWlsIjoiaWNobGFzdWwwODk5QGdtYWlsLmNvbSIsInVzZXJJRCI6IjYwNzU5YTZkYWEyZTdjM2E2YzM2NzVjYiIsImlhdCI6MTYyMjQyNjY2NX0.ZPBOUDER8LZLGWl1uFB8wabrpX6TCPBF2qjIt90KGwY' }}).then(res => {
-                setChange(!change)
-                setChange(!change)
-                console.log(res.message)
-            })
-
-            // axios
-            // .delete(url, {headers: {
-            //     'token': my_token
-            // }})
-            // .then((res) => {
-            //             console.log('Hello Bro')
-            //             setInfo('Success Delete')
-            //             setChange(!change)
-            //         })
-            // .catch(err => console.log(err))
-            // .finally(()=> console.log('Finish klas'))
-            // productService
-            //     .deleteProduct(id, my_token)
-            //     .then((res) => {
-            //         console.log('Hello Bro')
-            //         setInfo('Success Delete')
-            //         setChange(!change)
-            //     })
-            //     .catch(err => {
-            //         console.log(err)
-            //         // setInfo("error")
-            //     })
-            //     .finally(() => {
-            //         console.log('Success fetch api ')
-            //     })
+            axios
+                .delete(url, {headers: {token}})
+                .then(res => {
+                    setChange(!change)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+                .finally(()=>{
+                    console.log('Fetch To delete buku!')
+                })
         } else {
             console.log('Fuck')
         }
     }
 
     return(
-        <div>
-            <div style={{ display: 'flex', justifyContent: 'center' , marginTop: '40px'}}>
-                <div
-                    style={{
-                    padding: '0',
-                    margin: '0',
-                    backgroundColor: 'white',
-                    }}
-                >
-                    <div style={{margin:"20px auto"}} >
-                        <Link style={{backgroundColor: 'blue', padding: '10px 8px', color: 'white', borderRadius: '5px'}} to="/add-book">Tambah Buku</Link>
-                    </div>
-
-                    <div>
-                        {info && (
-                            <div style={{cursor: 'pointer'}} onClick={handleHideInfo}>
-                                <Alert variant={info === "error" ? "danger" : "success" }>
-                                    {info}
-                                </Alert>
-                            </div>
-                        )}
-                    </div>
-                    <Table
-                    style={{ overflow: 'scroll' }}
-                    striped
-                    hover
-                    className="text-center"
-                    >
-                    <thead>
-                        <tr>
-                        <th>No</th>
-                        <th>Judul Buku</th>
-                        <th>Penulis</th>
-                        <th>Harga</th>
-                        <th>Stok Barang</th>
-                        <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {products && products.map((data, index) => {
-                            const to =`/products/${data._id}`
-                            const toUpdate =`/update-book/${data._id}`
-
-                            return (
-                                <tr  >
-                                    <td>{index + 1}</td>
-                                    <td>{data.name.slice(0,30)}</td>
-                                    <td>{data.author}</td>
-                                    <td>{data.price}</td>
-                                    <td>{data.quantity}</td>
-                                    <td>
-                                        
-                                        <Button variant="primary" style={{marginRight: '10px', color: 'white'}}><Link style={{color: 'white'}} to={to}  >Detail</Link></Button>
-                                        <Button style={{marginRight: '10px'}} variant="primary"><Link style={{color: 'white'}} to={toUpdate}  >Update</Link></Button>
-                                        <Button onClick={() => handleDelete(data._id)} variant="danger">Delete</Button>
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                    </Table>
+        <Container>
+            {info && (
+                <div style={{cursor: 'pointer'}} onClick={handleHideInfo}>
+                    <Alert variant={info === "error" ? "danger" : "success" }>
+                        {info}
+                    </Alert>
                 </div>
-            </div>
-        </div>
-    )
+             )}
 
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom: '20px'}}>
+                <h4>Table Data Buku</h4>
+                <Button variant="primary">
+                    <Link to="/add-book" style={{color: 'white'}}>
+                        + ADD BOOK 
+                    </Link>
+                </Button>
+            </div>
+
+            <Table style={{ overflow: 'scroll' }} striped hover>
+                <thead>
+                    <tr>
+                    <th>No</th>
+                    <th>Judul Buku</th>
+                    <th>Penulis</th>
+                    <th>Harga</th>
+                    <th>Stok Barang</th>
+                    <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {products && products.map((product, index) => {
+                        let {_id, name, author, price, quantity} = product
+                        const to_detail =`/products/${_id}`
+                        const to_update =`/update-book/${_id}`
+                        const new_index = index+1
+
+                        if (name.length > 30){
+                            name = `${name.slice(0,30)} ...`
+                        }
+
+                        let str_price = `Rp. ${convertToDuit(price | 0)}`
+                        
+                        return (
+                            <tr>
+                                <td>{new_index}</td>
+                                <td>
+                                    <Link to={to_detail} style={{color: 'inherit'}}>{name}</Link>
+                                </td>
+                                <td>{author}</td>
+                                <td>{str_price}</td>
+                                <td>{quantity} pcs</td>
+                                <td style={{display: 'flex', justifyContent: 'space-around'}}>
+                                    <Button variant="outline-primary"><Link to={to_update} style={{color: 'blue'}}>Update</Link></Button>
+                                    <Button variant="outline-danger" onClick={() => handleDelete(_id)}>Delete</Button>
+                                </td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </Table>
+            
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    </li>
+                </ul>
+            </nav>
+        </Container>
+    )
 } 
 
 export default Products;
