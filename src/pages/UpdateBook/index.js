@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-    useParams, Link
-  } from "react-router-dom";
+import {useParams, Link} from "react-router-dom";
 import { Form, Button, Container, Row, Col, Alert, Breadcrumb, Card } from 'react-bootstrap';
 import { convertToDuit } from '../../utils/functions';
 
@@ -9,7 +7,7 @@ const axios = require('axios');
 
 const UpdateBook = () => {
     let { id } = useParams();
-    const url = `http://localhost:3001/product/${id}`
+    let url = `http://localhost:3001/product/${id}`
     const [pengarang, setPengarang] = useState("")
     const [title, setTitle] = useState("")
     const [image, setImage] = useState("")
@@ -18,38 +16,24 @@ const UpdateBook = () => {
     const [category, setCategory] = useState("")
     const [description, setDescription] = useState("")
     const [info, setInfo] = useState("")
-
-    const [data,setData] = useState({})
-
 	let str_price = `Rp. ${convertToDuit(price | 0)}`
 
-
-    // useEffect(() => {
-    //     axios.get(url).then((res) => {
-    //         const {name, author,price, quantity, image_link, description, category} = res.data.data
-    //         setPengarang(author)
-    //         setPrice(price)
-    //         setQuantity(quantity)
-    //         setImage(image_link)
-    //         setDescription(description)
-    //         setCategory(category)
-    //         setTitle(name)
-    //     })
-    // }, [])
+    useEffect(() => {
+        axios.get(url).then((res) => {
+            const {name, author,price, quantity, image_link, description, category} = res.data.data
+            setPengarang(author)
+            setPrice(price)
+            setQuantity(quantity)
+            setImage(image_link)
+            setDescription(description)
+            setCategory(category)
+            setTitle(name)
+        })
+    })
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (title.length > 0) {
-          let data = {
-            name: title,
-            author: pengarang,
-            image_link: image,
-            description,
-            category,
-            price,
-            quantity,
-          }
-    
           axios.put(url, {name: title,
             author: pengarang,
             image_link: image,
@@ -76,17 +60,17 @@ const UpdateBook = () => {
 		const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSWNobGFzdWwgQW1hbCIsImVtYWlsIjoiaWNobGFzdWwwODk5QGdtYWlsLmNvbSIsInVzZXJJRCI6IjYwNzU5YTZkYWEyZTdjM2E2YzM2NzVjYiIsImlhdCI6MTYyMjQyNjY2NX0.ZPBOUDER8LZLGWl1uFB8wabrpX6TCPBF2qjIt90KGwY'
 
 		if (token) {
-			// axios
-			// 	.delete(url, {headers: {token}})
-			// 	.then(res => {
-			// 		setChange(!change)
-			// 	})
-			// 	.catch(error => {
-			// 		console.log(error)
-			// 	})
-			// 	.finally(()=>{
-			// 		console.log('Fetch To delete buku!')
-			// 	})
+			axios
+				.delete(url, {headers: {token}})
+				.then(res => {
+					console.log('Success Add to cart')
+				})
+				.catch(error => {
+					console.log(error)
+				})
+				.finally(()=>{
+					console.log('Fetch To delete buku!')
+				})
 		} else {
 			console.log('ADD TO CART CUKK')
 		}
@@ -203,10 +187,8 @@ const UpdateBook = () => {
 									<Link to="/products">CANCEL</Link>
 								</Button>
 								<Button style={{margin: '5px'}} variant="primary" type="submit">SUBMIT</Button>
-
 							</div>
-							
-
+	
 						</Form>
 					</Card>
 				</Col>
@@ -232,10 +214,6 @@ const UpdateBook = () => {
 			</Row>
 		</Container>
 	);
-
-    
-  
-
 }
 
 export default UpdateBook

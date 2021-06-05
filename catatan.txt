@@ -1,0 +1,26 @@
+[ ] Penerapan Atomic Design pada Environment React
+
+https://medium.com/@makersinstitute/penerapan-atomic-design-pada-environment-react-c6c50eaf1b66
+
+Atomic Design adalah pendekatan desain yang dipopulerkan oleh Brad Frost, yang memecah elemen aplikasi web menjadi bagian-bagian modular hingga yang paling kecil.
+
+Elemen-elemen tadi dibagi menjadi beberapa level atau hirarki: atom, molekul, organisme, template, dan laman.Tujuannya adalah untuk mereduksi adanya kode berulang, mereduksi waktu set up, dan meningkatkan konsistensi antar komponen dan tampilan.
+
+Atom : [Search, placeholder, warna tipografi ukuran teks]
+
+molekul : {
+    pencarian : ['tombol search, dan input text fild]
+}
+
+Organisms : {
+    header : {
+        judul,
+        logo,
+        molekul pencarian,
+        button logout
+    }
+}
+
+Template : {
+    Home: [header, content, footer]
+}

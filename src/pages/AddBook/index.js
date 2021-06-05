@@ -63,7 +63,6 @@ const AddBook = () => {
 	}
 
 	const handleAddTocart = (id) => {
-		const url = `http://localhost:3001/product/${id}`
 		const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSWNobGFzdWwgQW1hbCIsImVtYWlsIjoiaWNobGFzdWwwODk5QGdtYWlsLmNvbSIsInVzZXJJRCI6IjYwNzU5YTZkYWEyZTdjM2E2YzM2NzVjYiIsImlhdCI6MTYyMjQyNjY2NX0.ZPBOUDER8LZLGWl1uFB8wabrpX6TCPBF2qjIt90KGwY'
 
 		if (token) {
@@ -78,6 +77,8 @@ const AddBook = () => {
 			// 	.finally(()=>{
 			// 		console.log('Fetch To delete buku!')
 			// 	})
+			console.log('ADD TO CART CUKK')
+
 		} else {
 			console.log('ADD TO CART CUKK')
 		}

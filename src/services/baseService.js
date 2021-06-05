@@ -1,22 +1,20 @@
 import axios from "axios";
 import { getCookie } from "../utils/cookie";
 
-function getTokenAuth() {
-  if (getCookie("token") && getCookie("userData")) {
-    return JSON.parse(getCookie("token")).value;
-  }
-  return "";
-}
-
 const createAxiosInterceptor = (url) => {
+  const token = getCookie('token')
+  const mytoken = token.slice(1,-1)
+
   const axiosCreate = axios.create({
     baseURL: url,
     headers: {
       Accept: "application/json",
       "Accept-Language": "es",
       "Content-Type": "application/json",
+      "token": mytoken
     },
   });
+  
   axiosCreate.interceptors.response.use(
     (response) => {
       return response.data;
@@ -32,9 +30,7 @@ const createAxiosInterceptor = (url) => {
   return axiosCreate;
 };
 
-
 const BaseService = createAxiosInterceptor('http://localhost:3001');
 // const BaseService = createAxiosInterceptor(process.env.REACT_APP_API);
-
 
 export default BaseService;

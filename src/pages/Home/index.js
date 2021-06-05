@@ -1,24 +1,24 @@
-import React from "react";
-import HeroSection from "../../Component/HeroSection";
-import CategoryBooks from "../../Component/CategoryBooks";
-import HomeProducts from "../../Component/HomeProducts";
-import Footer from "../../Component/Footer";
-import Quote from "../../Component/Quote"
-import Header from '../../Component/Header'
-
+import React, {useEffect} from "react";
+import {ProductsComponent} from '../../Component'
+import { useSelector, useDispatch } from "react-redux";
+import { getProducts } from "../../store/action/index";
 
 const Home = () => {
-  
-  return (
-    <div>
-      {/* <Header /> */}
-      {/* <HeroSection /> */}
-      {/* <CategoryBooks /> */}
-      <HomeProducts />
-      {/* <Quote /> */}
-      {/* <Footer /> */}
-    </div>
-  );
+	const products = useSelector((state) => state.productReducer.products);
+	let dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(getProducts())
+	}, [dispatch]);
+
+
+	return (
+		<div>
+			{products ? (
+				<ProductsComponent data={products} type="card"/>
+			) : <p>Loading . . .</p>}
+		</div>
+	)
 };
 
 export default Home;
