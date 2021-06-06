@@ -1,10 +1,10 @@
-import React from 'react'
+import React  from 'react'
 import { Card, Button} from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import {convertToRupiah, discountPrice} from '../utils/functions'
 
 const DetailOrder = (props) => {
-    const {products} = props
+    const {products, userData} = props
     let jumlah_product = () => {
         let total = 0
         for (let i = 0 ; i < products.length ; i++ ){
@@ -24,6 +24,14 @@ const DetailOrder = (props) => {
         return convertToRupiah(Math.round(total))
     }
 
+    // useEffect(() => {
+    //     console.log('hai iklas')
+    // }, [userData])
+
+    const handleChosePayment = () => {
+        console.log('Oke Buka pop up dari midtrans')
+    }
+
     return (
         <Card>
             <Card.Header>Detail Order</Card.Header>
@@ -38,9 +46,16 @@ const DetailOrder = (props) => {
                     <p style={{margin: 0}}><b>{total_price()}</b></p>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'column', marginTop: '20px'}}>
-                    <Button variant='primary' style={{margin:'5px'}}>
-                        <Link to="/cart/shipment" style={{marginRight: '20px', color: 'white'}}>BUY ({jumlah_product()})</Link>
-                    </Button>
+                    {userData ? (
+                        <Button onClick={()=> handleChosePayment()} variant='primary' style={{margin:'5px'}}>
+                            CHOSE PAYMENT
+                        </Button>
+                    ) : (
+                        <Button variant='primary' style={{margin:'5px'}}>
+                            <Link to="/cart/shipment" style={{marginRight: '20px', color: 'white'}}>BUY ({jumlah_product()})</Link>
+                        </Button>
+                    )}
+                    
                 </div>
             </Card.Body>
         </Card>

@@ -102,26 +102,26 @@ const ProductsComponent = (props) => {
                 return (
                     <Col xs={6} sm={6} md={4} lg={3}>
                         <Card style={{ marginBottom: '20px' , cursor: 'pointer'}}>
-                        <div style={{height: '160px', overflow: 'hidden'}}>
-                            <Card.Img variant="top" src={image_link} />
-                        </div>
-                        <Card.Body>
-                            <Badge class={class_me}>{category}</Badge>
-                            <div style={{height: '60px'}}>
-                                <Card.Title>{name}</Card.Title>
+                            <div style={{height: '160px', overflow: 'hidden'}}>
+                                <Card.Img variant="top" src={image_link} />
                             </div>
-                            <Card.Text>
-                                <b>{str_price}</b>
-                            </Card.Text>
-                            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                <Button variant='outline-primary' >
-                                    <Link to={to}>DETAIL</Link>
-                                </Button>
-                                <Button variant='outline-primary' onClick={(event) => handleAddToCart(event,product)}>
-                                    ADD TO CART
-                                </Button>
-                            </div>
-                        </Card.Body>
+                            <Card.Body>
+                                <Badge class={class_me}>{category}</Badge>
+                                <div style={{height: '60px'}}>
+                                    <Card.Title>{name}</Card.Title>
+                                </div>
+                                <Card.Text>
+                                    <b>{str_price}</b>
+                                </Card.Text>
+                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                    <Button variant='outline-primary' >
+                                        <Link to={to}>DETAIL</Link>
+                                    </Button>
+                                    <Button variant='outline-primary' onClick={(event) => handleAddToCart(event,product)}>
+                                        ADD TO CART
+                                    </Button>
+                                </div>
+                            </Card.Body>
                         </Card>
                     </Col>
                 );

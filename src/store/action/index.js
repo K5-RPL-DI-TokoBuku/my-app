@@ -39,6 +39,44 @@ export function getUserCart() {
     }
 }
 
+export function getUserData() {
+    return (dispatch, getState) => {
+        userService
+            .getDetailUser()
+            .then(res=>{
+                dispatch({
+                    type: "UPDATE_USER_DATA",
+                    payload: {
+                        userData: res.dataUser
+                    }
+                })
+            })
+            .catch((err) => console.log(err))
+            .finally(()=> console.log('Fetch Api to Get User Detail'))
+    }
+}
+
+export function updateAlamatPengiriman(newAlamat) {
+    return (dispatch, getState) => {
+        userService
+            .updateAlamat(newAlamat)
+            .then(res=>{
+                dispatch({
+                    type: "UPDATE_USER_DATA",
+                    payload: {
+                        userData: res.new_userData
+                    }
+                })
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+            .finally(()=>{
+                console.log('Update Alamat pengiriman')
+            })
+    }
+}
+
 
 // Contoh ApI Zomato untuk get data
 // https://developers.zomato.com/api/v2.1/search?entity_id=74&entity_type=city&sort=rating&count=12

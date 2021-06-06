@@ -1,6 +1,16 @@
-import { Home, Login, Register, AddBook, Cart, Products, DetailProduct, UpdateBook, Shipment } from '../pages';
+import { Home, Login, Register, AddBook, Cart, Products, DetailProduct, UpdateBook, Shipment, Profile, Information } from '../pages';
 
 const routes = [
+  {
+    path: "/information",
+    component: Information,
+    isPublic: true,
+  },
+  {
+    path: "/profile",
+    component: Profile,
+    isPublic: false,
+  },
   {
     path: "/products/:id",
     component: DetailProduct,
