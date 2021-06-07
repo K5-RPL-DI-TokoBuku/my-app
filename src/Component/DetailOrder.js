@@ -114,6 +114,10 @@ const DetailOrder = (props) => {
         return convertToRupiah(Math.round(total))
     }
 
+    useEffect(() => {
+        console.log('')
+    }, [props])
+
     const handleChosePayment = () => {
         console.log('Oke Buka pop up dari midtrans')
         setShowModal(true)
