@@ -2,32 +2,21 @@ import React, {useState} from 'react'
 import { Container, Row, Col, Card, Badge, Alert, Button, Table } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { convertToDuit } from '../utils/functions';
+import { addToCartUser } from '../store/action';
+import { useDispatch } from "react-redux";
 
-import {userService} from '../services/index'
 
 const ProductsComponent = (props) => {
+	const dispatch = useDispatch();
 
     const {data, type} = props
     const [message, setMessage] = useState(false)
 
     const handleAddToCart = (e, data_product) => {
         e.preventDefault()
-
         let new_data_product = data_product
         new_data_product['quantity'] = 1
-
-        userService
-            .addToCartUser(new_data_product)
-            .then(res => {
-                setMessage(res.message)
-            })
-            .catch(err => {
-                setMessage('Failed add product to cart')
-                console.log(err)
-            })
-            .finally(()=> {
-                console.log('Fetch api to add product to cart')
-            })
+        dispatch(addToCartUser(new_data_product))
     }
 
     const handleDelete = (e,id) => {

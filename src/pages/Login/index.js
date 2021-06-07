@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./style.css";
-import { image1 } from "../../assets/index";
-import { Form, Button, Container, Row, Col, Image,  Alert } from "react-bootstrap/";
+import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap/";
 import { userService } from '../../services';
 import { setCookie } from '../../utils/cookie';
+import {Link } from 'react-router-dom'
 
 
 const Login = () => {
@@ -34,12 +34,12 @@ const Login = () => {
           setPassword("");
 
           const cookieToken = response.token;
-            const cookieUser = {
-              username: response.user,
-              ID: response.ID,
-            };
-            setCookie('userData', JSON.stringify(cookieUser), 10000);
-            setCookie('token', JSON.stringify(cookieToken), 10000);
+          const cookieUser = {
+            username: response.user,
+            ID: response.ID,
+          };
+          setCookie('userData', JSON.stringify(cookieUser), 10000);
+          setCookie('token', JSON.stringify(cookieToken), 10000);
 
           var delayInMilliseconds = 1000; //1 second
 
@@ -64,19 +64,6 @@ const Login = () => {
     <div className="loginPageStyle">
       <Container>
         <Row className="styleRow">
-          <Col xs={12} md={8}>
-            <h3>Whats up!!</h3>
-            <div>
-              <Image src={image1} rounded />
-              <div>
-                <div className="styleHeader">
-                  <p>Bangalore, India</p>
-                  <p>3 Maret</p>
-                </div>
-                {/* <h4>Skill yang Dibutuhkan oleh Seorang Software Engineer ?</h4> */}
-              </div>
-            </div>
-          </Col>
           <Col xs={6} md={4}>
             <div>
               {info && (
@@ -127,7 +114,7 @@ const Login = () => {
               <br></br>
               <hr />
 
-              <p style={{textAlign: 'center'}}>If you dont have account? <a href="/register">Register Here</a></p>
+              <p style={{textAlign: 'center'}}>If you dont have account? <Link to="/register">Register Here</Link></p>
             </Form>
           </Col>
         </Row>

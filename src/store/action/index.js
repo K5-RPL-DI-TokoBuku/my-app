@@ -61,6 +61,10 @@ export function updateAlamatPengiriman(newAlamat) {
         userService
             .updateAlamat(newAlamat)
             .then(res=>{
+                console.log('action 64')
+                console.log(res)
+                console.log('action 64')
+
                 dispatch({
                     type: "UPDATE_USER_DATA",
                     payload: {
@@ -74,6 +78,31 @@ export function updateAlamatPengiriman(newAlamat) {
             .finally(()=>{
                 console.log('Update Alamat pengiriman')
             })
+    }
+}
+
+export function addToCartUser(new_data_product){
+    return (dispatch, getState) => {
+        userService
+            .addToCartUser(new_data_product)
+            .then(res => {
+                console.log("from action :\n", res.cart)
+                dispatch({
+                    type: "UPDATE_USER_CART",
+                    payload: {
+                        'cart': res.result.cart
+                    }
+                })
+            })
+            .catch(err => {
+                // setMessage('Failed add product to cart')
+                console.log(err)
+                console.log('Failed add product to cart')
+            })
+            .finally(()=> {
+                console.log('Fetch api to add product to cart')
+            })
+       
     }
 }
 

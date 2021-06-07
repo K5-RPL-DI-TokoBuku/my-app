@@ -1,17 +1,8 @@
 import React, { useState } from "react";
 import "./style.css";
-import { image1 } from "../../assets/index";
-import {
-  Form,
-  Button,
-  Container,
-  Row,
-  Col,
-  Image,
-  Alert
-} from "react-bootstrap/";
-
+import {Form,Button,Container,Row,Col,Alert} from "react-bootstrap/";
 import {userService} from '../../services';
+import {Link } from 'react-router-dom'
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -27,7 +18,6 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const nik = 0
-
 
     if (name && email && password){
       userService
@@ -56,20 +46,6 @@ const Register = () => {
     <div className="loginPageStyle">
       <Container>
         <Row className="styleRow">
-          <Col xs={12} md={8}>
-            {/* <a href="/"></a> */}
-            <a href="/">TOKO - BUKU</a>
-            <div>
-              <Image src={image1} rounded />
-              <div>
-                <div className="styleHeader">
-                  <p>Bangalore, India</p>
-                  <p>3 Maret</p>
-                </div>
-                {/* <h4>Skill yang Dibutuhkan oleh Seorang Software Engineer ?</h4> */}
-              </div>
-            </div>
-          </Col>
           <Col xs={12} md={4}>
             <div>
               {info && (
@@ -137,7 +113,7 @@ const Register = () => {
               <hr />
 
               <p style={{ textAlign: "center" }}>
-                Do you have account? <a href="/login">Login Here</a>
+                Do you have account? <Link to="/login">Login Here</Link>
               </p>
             </Form>
           </Col>

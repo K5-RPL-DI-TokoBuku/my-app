@@ -5,10 +5,8 @@ import { FaUserAlt } from "react-icons/fa";
 const UserComponent = (props) => {
     const {_id, email, password, name, nik, cart, alamat_pengiriman} = props.user
     const [detail_pengiriman, setDetailPengiriman] = useState(false)   
-    const {label_alamat, nomor_telepon, kota_kecamatan, kode_pos, alamat} = alamat_pengiriman[0]
-
+    let {label_alamat, nomor_telepon, kota_kecamatan, kode_pos, alamat} = alamat_pengiriman
     const [showDetail, setShowDetail] = useState(true)
-
 
     let userId = _id.split(0,10)
     let nickname = name.split(" ")[0]

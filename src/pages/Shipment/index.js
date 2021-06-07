@@ -8,7 +8,7 @@ import { FaPhoneAlt, FaRegMap, FaRegHospital} from "react-icons/fa";
 const AlamatPengiriman = (props) => {
 
     const {alamat_pengiriman} = props.user
-    const {nomor_telepon, kota_kecamatan, kode_pos, alamat} = alamat_pengiriman[0]
+    const {nomor_telepon, kota_kecamatan, kode_pos, alamat} = alamat_pengiriman
 
     return (
         <div>
@@ -52,16 +52,16 @@ const Shipment = () => {
 
     useEffect(() => {
         if(user['alamat_pengiriman']){
-            setNomortelpon(user['alamat_pengiriman'][0]['nomor_telepon'])
-            setKotakecamatan(user['alamat_pengiriman'][0]['kota_kecamatan'])
-            setKodepos(user['alamat_pengiriman'][0]['kode_pos'])
-            setAlamat(user['alamat_pengiriman'][0]['alamat'])
+            setNomortelpon(user['alamat_pengiriman']['nomor_telepon'])
+            setKotakecamatan(user['alamat_pengiriman']['kota_kecamatan'])
+            setKodepos(user['alamat_pengiriman']['kode_pos'])
+            setAlamat(user['alamat_pengiriman']['alamat'])
         }
     }, [user])
 
     const handleSubmitUpdateAlamat = () => {
         const newAlamat = {
-            label_alamat: user['alamat_pengiriman'][0]['label_alamat'],
+            label_alamat: user['alamat_pengiriman']['label_alamat'],
             nomor_telepon:  nomortelpon,
             kota_kecamatan: kotakecamatan,
             kode_pos: kodepos,
