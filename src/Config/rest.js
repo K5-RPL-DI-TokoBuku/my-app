@@ -11,5 +11,7 @@ export default {
   GET_PRODUCTS: "/product/all",
   GET_PRODUCT: (id)=>{
     return `/product/${id}`
-  }
+  },
+  POST_CITY_IN_PROVINCE: "/transaction/get_city_in_province",
+  CHECK_ONGKIR: "/transaction/check_ongkir"
 };

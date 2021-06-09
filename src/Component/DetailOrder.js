@@ -8,11 +8,13 @@ import {FaRegHospital} from "react-icons/fa";
 
 
 const DetailOrder = (props) => {
-    const {products, userData} = props
+    const {products, userData, ongkir, courier, rajaOngkir} = props
     const [showModal, setShowModal] = useState(false)
 
     const [paymentType, setPaymentType] = useState({})
     const [paymentChannel, setPaymentChannel] = useState('')
+
+    const totalOngkir = ongkir['cost'][0]['value']
 
     let paymentArr = [
         {
@@ -114,9 +116,63 @@ const DetailOrder = (props) => {
         return convertToRupiah(Math.round(total))
     }
 
+    let total = () => {
+        let total = 0
+        for (let i = 0 ; i < products.length ; i++ ){
+            const { quantity, price } = products[i]
+            const discount_price = discountPrice(price)
+            total += discount_price * quantity 
+        }
+
+        total = Math.round(total)
+        let result = total + totalOngkir
+
+        return convertToRupiah(result)
+    }
+
     const handleChosePayment = () => {
-        console.log('Oke Buka pop up dari midtrans')
         setShowModal(true)
+    }
+
+    const handleCheckout = () =>{
+        // let detailTransaksi = {
+        //     pembeli:{
+        //         name: '',
+        //         email: '', 
+        //         no_telepone: '',
+        //     },
+        //     tujuan:{
+        //         alamat: '',
+        //         provinsi : '',
+        //         city: '',
+        //     },
+        //     biayaTotal: '',
+        //     detail_pengiriman:{
+        //         jasa: 'jne',
+        //         service: 'OKE',
+        //         values: '',
+        //     },
+        //     detail_belanja:[
+        //         {namaproduct: '', jumlah product: ''}
+        //     ]
+
+        // }
+
+        let detailTransaksi = {
+            userData,
+            products,
+            courier,
+            ongkir,
+            alamat: rajaOngkir['destination_details'],
+            pembayaran: {
+                paymentType,
+                paymentChannel
+            }
+        }
+        console.log("Detail", detailTransaksi)
+
+        // create transaction for user
+        // redirect to halaman detail transaction with status menunggu pembayaran dan give user check to bill
     }
 
     return (
@@ -128,10 +184,14 @@ const DetailOrder = (props) => {
                         <p>Total Price ({jumlah_product()} items)</p>
                         <p>{total_price()}</p>
                     </div>
+                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <p>Ongkos Kirim ({`${courier} - ${ongkir['service']}`})</p>
+                        <p>{convertToRupiah(totalOngkir)}</p>
+                    </div>
                     <hr></hr>
                     <div style={{display: 'flex', justifyContent: 'space-between', alignContent: 'center', }}>
-                        <h4 style={{margin: 0}}><b>Total Price</b></h4>
-                        <p style={{margin: 0}}><b>{total_price()}</b></p>
+                        <h4 style={{margin: 0}}><b>Total</b></h4>
+                        <p style={{margin: 0}}><b>{total()}</b></p>
                     </div>
                     <div style={{display: 'flex', flexDirection: 'column', marginTop: '20px'}}>
                         {userData ? (
@@ -176,8 +236,6 @@ const DetailOrder = (props) => {
                                     <hr></hr>
                                 </div>
                             ) : paymentArr.map((e,i) => {
-                                console.log(e['channel'])
-                                
                                 return(
                                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                         <div style={{display: 'flex', justifyContent: 'flex-start'}}>
@@ -206,7 +264,7 @@ const DetailOrder = (props) => {
                                 return(
                                     <div onClick={()=>{
                                         setPaymentChannel(e)
-                                        console.log(` You choose payment with: ${paymentType['type']} - ${paymentChannel['title']} `)
+                                        handleCheckout()
                                     }}  style={{display: 'flex', justifyContent: 'flex-start', cursor: 'pointer', padding: '10px'}}>
                                         <div style={{marginRight: '20px'}}>
                                             <MdPayment />

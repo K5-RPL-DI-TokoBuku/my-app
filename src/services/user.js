@@ -33,6 +33,16 @@ const updateAlamat = (data) => {
     return BaseService.put(API.UPDATE_ALAMAT, {label_alamat,nomor_telepon,kota_kecamatan,kode_pos,alamat})
 }
 
+const postCityInProvince = (province) => {
+    return BaseService.post(API.POST_CITY_IN_PROVINCE, {province}) 
+}
+
+const checkOngkir = (data) => {
+    const {destination, weight, courier} = data
+    console.log('fetch Api iklas', data)
+    return BaseService.post(API.CHECK_ONGKIR,{destination, weight, courier})
+}
+
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
@@ -42,5 +52,7 @@ export default {
     addToCartUser,
     deleteFromCartUser,
     getDetailUser,
-    updateAlamat
+    updateAlamat,
+    postCityInProvince,
+    checkOngkir
 }
