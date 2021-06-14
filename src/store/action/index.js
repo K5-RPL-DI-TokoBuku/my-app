@@ -61,10 +61,6 @@ export function updateAlamatPengiriman(newAlamat) {
         userService
             .updateAlamat(newAlamat)
             .then(res=>{
-                console.log('action 64')
-                console.log(res)
-                console.log('action 64')
-
                 dispatch({
                     type: "UPDATE_USER_DATA",
                     payload: {

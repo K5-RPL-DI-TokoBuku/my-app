@@ -4,7 +4,145 @@ import {getUserData} from '../../store/action'
 import { Container, Row, Col, Breadcrumb, Card, Button, Modal, Form } from 'react-bootstrap';
 import { UserComponent } from '../../Component';
 import {updateAlamatPengiriman } from "../../store/action/index";
-
+import { userService } from '../../services';
+const provinceArray = [
+    {
+        "province_id": "1",
+        "province": "Bali"
+    },
+    {
+        "province_id": "2",
+        "province": "Bangka Belitung"
+    },
+    {
+        "province_id": "3",
+        "province": "Banten"
+    },
+    {
+        "province_id": "4",
+        "province": "Bengkulu"
+    },
+    {
+        "province_id": "5",
+        "province": "DI Yogyakarta"
+    },
+    {
+        "province_id": "6",
+        "province": "DKI Jakarta"
+    },
+    {
+        "province_id": "7",
+        "province": "Gorontalo"
+    },
+    {
+        "province_id": "8",
+        "province": "Jambi"
+    },
+    {
+        "province_id": "9",
+        "province": "Jawa Barat"
+    },
+    {
+        "province_id": "10",
+        "province": "Jawa Tengah"
+    },
+    {
+        "province_id": "11",
+        "province": "Jawa Timur"
+    },
+    {
+        "province_id": "12",
+        "province": "Kalimantan Barat"
+    },
+    {
+        "province_id": "13",
+        "province": "Kalimantan Selatan"
+    },
+    {
+        "province_id": "14",
+        "province": "Kalimantan Tengah"
+    },
+    {
+        "province_id": "15",
+        "province": "Kalimantan Timur"
+    },
+    {
+        "province_id": "16",
+        "province": "Kalimantan Utara"
+    },
+    {
+        "province_id": "17",
+        "province": "Kepulauan Riau"
+    },
+    {
+        "province_id": "18",
+        "province": "Lampung"
+    },
+    {
+        "province_id": "19",
+        "province": "Maluku"
+    },
+    {
+        "province_id": "20",
+        "province": "Maluku Utara"
+    },
+    {
+        "province_id": "21",
+        "province": "Nanggroe Aceh Darussalam (NAD)"
+    },
+    {
+        "province_id": "22",
+        "province": "Nusa Tenggara Barat (NTB)"
+    },
+    {
+        "province_id": "23",
+        "province": "Nusa Tenggara Timur (NTT)"
+    },
+    {
+        "province_id": "24",
+        "province": "Papua"
+    },
+    {
+        "province_id": "25",
+        "province": "Papua Barat"
+    },
+    {
+        "province_id": "26",
+        "province": "Riau"
+    },
+    {
+        "province_id": "27",
+        "province": "Sulawesi Barat"
+    },
+    {
+        "province_id": "28",
+        "province": "Sulawesi Selatan"
+    },
+    {
+        "province_id": "29",
+        "province": "Sulawesi Tengah"
+    },
+    {
+        "province_id": "30",
+        "province": "Sulawesi Tenggara"
+    },
+    {
+        "province_id": "31",
+        "province": "Sulawesi Utara"
+    },
+    {
+        "province_id": "32",
+        "province": "Sumatera Barat"
+    },
+    {
+        "province_id": "33",
+        "province": "Sumatera Selatan"
+    },
+    {
+        "province_id": "34",
+        "province": "Sumatera Utara"
+    }
+]
 
 const Profile = () => {
     const dispatch = useDispatch()
@@ -15,6 +153,11 @@ const Profile = () => {
     const [kotakecamatan, setKotakecamatan] = useState('')
     const [kodepos, setKodepos ] = useState('')
     const [alamat_penerima, setAlamat] = useState('') 
+
+    const [province, setProvince] = useState()
+    const [city, setCity] = useState()
+    const [cityArray, setCityArray] = useState([])
+
 
     useEffect(() => {
 		dispatch(getUserData())
@@ -27,6 +170,9 @@ const Profile = () => {
             setKotakecamatan(user['alamat_pengiriman']['kota_kecamatan'])
             setKodepos(user['alamat_pengiriman']['kode_pos'])
             setAlamat(user['alamat_pengiriman']['alamat'])
+            setProvince(user['alamat_pengiriman']['provinsi'])
+            setCity(user['alamat_pengiriman']['kabupaten'])
+
         }
     }, [user])
 
@@ -36,7 +182,9 @@ const Profile = () => {
             nomor_telepon:  nomortelpon,
             kota_kecamatan: kotakecamatan,
             kode_pos: kodepos,
-            alamat: alamat_penerima
+            alamat: alamat_penerima,
+            provinsi: province,
+            kabupaten:city,
         }
 
         console.log(newAlamat)
@@ -90,6 +238,55 @@ const Profile = () => {
                                     type="text"
                                 />
                             </Form.Group>
+
+                            <Form.Group controlId="formBasicEmail">
+                                <Form.Label>Provinsi</Form.Label>
+
+                                <Form.Control as="select" value={province} onChange={(e) => {
+										setProvince(e.target.value)
+                                        console.log('yae')
+                                        // Fetch Api an then set city 
+
+                                        userService
+                                            .postCityInProvince(e.target.value)
+                                            .then((res) => {
+                                                console.log('Result from raja ongkir')
+                                                console.log(res)
+                                                console.log('Total result: ', res.result.length)
+                                                setCityArray(res.result)
+                                            })
+                                            .catch(err=>{
+                                                console.log(err)
+                                            })
+                                            .finally(()=>{
+                                                console.log('Fetch city in province , to raja ongkir API')
+                                            })
+
+                                        
+									}}>
+                                        {provinceArray.map((e,i) =>{
+                                            return(
+										        <option value={e.province_id}>{e.province}</option>
+                                            )
+                                        })}
+									</Form.Control>
+                            </Form.Group>
+
+                            {cityArray.length > 0 && (
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>Kota / Kabupaten</Form.Label>
+                                    <Form.Control as="select" value={city} onChange={(e) => {
+                                        setCity(e.target.value)
+                                    }}>
+                                        {cityArray.map((e,i) =>{
+                                                return(
+                                                    <option value={e.city_id}>{e.city_name}</option>
+                                                )
+                                            })}
+                                    </Form.Control>
+                                </Form.Group>
+
+                            )}
 
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Alamat Penerima</Form.Label>

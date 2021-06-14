@@ -13,5 +13,6 @@ export default {
     return `/product/${id}`
   },
   POST_CITY_IN_PROVINCE: "/transaction/get_city_in_province",
-  CHECK_ONGKIR: "/transaction/check_ongkir"
+  CHECK_ONGKIR: "/transaction/check_ongkir",
+  BUAT_TRANSAKSI: "/transaction/buat_transaksi"
 };

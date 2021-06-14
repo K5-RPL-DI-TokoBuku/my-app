@@ -8,6 +8,8 @@ const axios = require('axios');
 const UpdateBook = () => {
     let { id } = useParams();
     let url = `http://localhost:3001/product/${id}`
+	const [data, setData] = useState({})
+
     const [pengarang, setPengarang] = useState("")
     const [title, setTitle] = useState("")
     const [image, setImage] = useState("")
@@ -17,8 +19,10 @@ const UpdateBook = () => {
     const [description, setDescription] = useState("")
     const [info, setInfo] = useState("")
 	let str_price = `Rp. ${convertToDuit(price | 0)}`
+	const [update, setUpdate] = useState('false')
 
     useEffect(() => {
+		console.log('Hai')
         axios.get(url).then((res) => {
             const {name, author,price, quantity, image_link, description, category} = res.data.data
             setPengarang(author)
@@ -28,10 +32,13 @@ const UpdateBook = () => {
             setDescription(description)
             setCategory(category)
             setTitle(name)
+			console.log(name)
+			setData({name, author,price, quantity, image_link, description, category})
         })
-    })
+    }, [update])
 
     const handleSubmit = (e) => {
+		console.log('Updated')
         e.preventDefault();
         if (title.length > 0) {
           axios.put(url, {name: title,
@@ -49,6 +56,7 @@ const UpdateBook = () => {
         } else {
           setInfo("error")
         }
+		setUpdate(!update)
       }
 
     const handleHideInfo = () => {

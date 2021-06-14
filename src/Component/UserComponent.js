@@ -5,7 +5,7 @@ import { FaUserAlt } from "react-icons/fa";
 const UserComponent = (props) => {
     const {_id, email, password, name, nik, cart, alamat_pengiriman} = props.user
     const [detail_pengiriman, setDetailPengiriman] = useState(false)   
-    let {label_alamat, nomor_telepon, kota_kecamatan, kode_pos, alamat} = alamat_pengiriman
+    let {label_alamat, nomor_telepon, kota_kecamatan, kode_pos, alamat, provinsi, kabupaten} = alamat_pengiriman
     const [showDetail, setShowDetail] = useState(true)
 
     let userId = _id.split(0,10)
@@ -15,6 +15,8 @@ const UserComponent = (props) => {
     if (password.length > 10){
         password_secure = "Password Secure"
     }
+
+    console.log(alamat_pengiriman)
 
     return (
         <Card>
@@ -66,16 +68,20 @@ const UserComponent = (props) => {
                             <div style={{marginRight: '20px'}}>
                                 <p>Label</p>
                                 <p>nomor telepon</p>
+                                <p>Provinsi</p>
+                                <p>Kabupaten</p>
                                 <p>kota kecamatan</p>
                                 <p>kode pos </p>
                                 <p>Alamat </p>
                             </div>
                             <div>
-                                <p>{label_alamat}</p>
-                                <p>{nomor_telepon}</p>
-                                <p>{kota_kecamatan}</p>
-                                <p>{kode_pos}</p>
-                                <p>{alamat}</p>
+                                <p>{label_alamat ? label_alamat : "Not set"}</p>
+                                <p>{nomor_telepon ? nomor_telepon : "Not set"}</p>
+                                <p>{provinsi ? provinsi : "Not set"}</p>
+                                <p>{kabupaten ? kabupaten : "Not set"}</p>
+                                <p>{kota_kecamatan ? kota_kecamatan : "Not set"}</p>
+                                <p>{kode_pos ? kode_pos : "Not set"}</p>
+                                <p>{alamat ? alamat : "Not set"}</p>
                             </div>
                         </div>
                     </div>

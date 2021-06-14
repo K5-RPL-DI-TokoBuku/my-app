@@ -1,12 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React,{useEffect} from 'react';
+import React from 'react';
 import './App.css';
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import routes from './Config/routes';
 import { isUserAuthenticated } from './utils/cookie';
 import Header from './Component/Header'
-import {useSelector, useDispatch} from 'react-redux'
-import { getUserCart } from "./store/action/index";
+import {useSelector} from 'react-redux'
 
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -24,14 +23,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 };
 
 const App = () => {
-	const dispatch = useDispatch();
   const cart = useSelector((state) => state.userReducer.userCart);
-
-
-	useEffect(() => {
-		dispatch(getUserCart())
-	}, [dispatch]);
-
 
   return (
     <BrowserRouter>

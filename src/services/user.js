@@ -29,8 +29,8 @@ const deleteFromCartUser = (id) => {
 }
 
 const updateAlamat = (data) => {
-    const {label_alamat ,nomor_telepon ,kota_kecamatan ,kode_pos ,alamat }  = data
-    return BaseService.put(API.UPDATE_ALAMAT, {label_alamat,nomor_telepon,kota_kecamatan,kode_pos,alamat})
+    const {label_alamat ,nomor_telepon ,kota_kecamatan ,kode_pos ,alamat, kabupaten, provinsi }  = data
+    return BaseService.put(API.UPDATE_ALAMAT, {label_alamat,nomor_telepon,kota_kecamatan,kode_pos,alamat,kabupaten, provinsi})
 }
 
 const postCityInProvince = (province) => {
@@ -41,6 +41,20 @@ const checkOngkir = (data) => {
     const {destination, weight, courier} = data
     console.log('fetch Api iklas', data)
     return BaseService.post(API.CHECK_ONGKIR,{destination, weight, courier})
+}
+
+const buatTransaksi = (data) => {
+    const {userData,
+        products,
+        courier,
+        ongkir,
+        pembayaran, total_pembayaran} = data
+
+    return BaseService.post(API.BUAT_TRANSAKSI,{userData,
+        products,
+        courier,
+        ongkir,
+        pembayaran, total_pembayaran})
 }
 
 
@@ -54,5 +68,6 @@ export default {
     getDetailUser,
     updateAlamat,
     postCityInProvince,
-    checkOngkir
+    checkOngkir,
+    buatTransaksi
 }

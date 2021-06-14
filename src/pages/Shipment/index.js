@@ -384,7 +384,7 @@ const Shipment = () => {
                     </Col>
 
                     <Col lg={4}>
-                        {!strOngkir && (
+                        {!strOngkir ? (
 
                         
                             <Form style={{margin: "10px 0 40px 0",}}>
@@ -463,9 +463,10 @@ const Shipment = () => {
                                     // <p>You choose {ongkir['service']}, estimasi sampai {ongkir['cost'][0]['etd']} . Total Ongkir: {ongkir['cost'][0]['value']}</p>
                                 )}
                             </Form>
+                        ) : (
+                            <DetailOrder products={products} userData={user} courier={courier} ongkir={ongkir} rajaOngkir={rajaOngkir} />
                         )}
 
-                        {products && ongkir ? <DetailOrder products={products} userData={user} courier={courier} ongkir={ongkir} rajaOngkir={rajaOngkir} /> : <p style={{color: 'red', border: '2px solid red', borderRadius:'5px', padding: '5px 10px'}}>Silahkan Memilih jasa Kurir</p> }
                     </Col>
 
                 </Row>
