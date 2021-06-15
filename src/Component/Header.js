@@ -2,9 +2,13 @@ import React, {useEffect} from 'react';
 import {Navbar, Nav, Form, FormControl, Button, Container} from "react-bootstrap";
 import { getCookie, setCookie } from '../utils/cookie';
 import { FaShippingFast, FaDiceD6, FaInfoCircle, FaShoppingCart, FaUserCircle } from "react-icons/fa";
+import {useSelector} from 'react-redux'
 
-const Header = ({cart}) => {
+
+const Header = () => {
 	const token = getCookie("token")
+
+	const cart = useSelector((state) => state.userReducer.userCart);
 
 	useEffect(() => {
 		console.log('All iss weelll')
@@ -50,7 +54,7 @@ const Header = ({cart}) => {
 									window.location.replace("http://localhost:3000/cart");
 								}} style={{margin: '10px', color: 'white', cursor: 'pointer'}}><FaShoppingCart /><span style={{ fontSize: '14pt',display: ''}}>{cart.length}</span></h4>
 								<h4 onClick={() => {
-									window.location.replace("http://localhost:3000/profile");
+									window.location.replace("http://localhost:3000/transaksi");
 								}} style={{margin: '10px', color: 'white', cursor: 'pointer'}}><FaShippingFast /></h4>
 								<h4 onClick={() => {
 									window.location.replace("http://localhost:3000/profile");

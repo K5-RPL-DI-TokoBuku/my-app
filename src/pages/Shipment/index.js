@@ -476,35 +476,3 @@ const Shipment = () => {
 }
 
 export default Shipment
-
-
-
-
-
-                        // <div style={{display: 'flex', justifyContent: 'space-between'}} >
-                        //     <h5 style={{padding: '10px'}}>Informasi pembeli</h5>
-                        //     <div>
-                        //         <Button style={{padding:'5px 12px'}} variant="outline-primary" onClick={() => setModal(true)}>Update</Button>
-                        //     </div>
-                            
-                        // </div>
-                        // {user['name'] && <InformasiPembeli user={user} />}
-                        // <hr></hr>
-                        // <div style={{display: 'flex', justifyContent: 'space-between'}} >
-                        //     <h5 style={{padding: '10px'}}>Alamat Pengiriman</h5>
-                        //     <div>
-                        //         <Button style={{padding:'5px 12px'}} variant="outline-primary" onClick={() => setModal(true)}>Update</Button>
-                        //     </div>
-                            
-                        // </div>
-                        // {user['name'] && <AlamatPengiriman user={user} />}
-                        // <hr></hr>
-                        // <div style={{display: 'flex', justifyContent: 'space-between'}} >
-                        //     <h5 style={{padding: '10px'}}>Jasa Pengiriman</h5>
-                        //     <div>
-                        //         <Button style={{padding:'5px 12px'}} variant="outline-primary" onClick={() => setModal(true)}>Update</Button>
-                        //     </div>
-                            
-                        // </div>
-                        // {user['name'] && <PilihKurir city={city} products={products} />}
-                        // <hr></hr> 

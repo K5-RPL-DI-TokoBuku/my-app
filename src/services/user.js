@@ -57,6 +57,10 @@ const buatTransaksi = (data) => {
         pembayaran, total_pembayaran})
 }
 
+const getAllTransaksi = () => {
+    return BaseService.get(API.GETALLTRANSAKSI)
+}
+
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
@@ -69,5 +73,6 @@ export default {
     updateAlamat,
     postCityInProvince,
     checkOngkir,
-    buatTransaksi
+    buatTransaksi,
+    getAllTransaksi
 }

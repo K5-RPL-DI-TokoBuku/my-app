@@ -9,7 +9,7 @@ import { userService } from '../services';
 
 
 const DetailOrder = (props) => {
-    const {products, userData, ongkir, courier, rajaOngkir} = props
+    const {products, userData, ongkir, courier} = props
     const [showModal, setShowModal] = useState(false)
 
     const [paymentType, setPaymentType] = useState({})
