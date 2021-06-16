@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {ProductsComponent, HeroSection, Footer} from '../../Component'
+import {ProductsComponent} from '../../Component'
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "../../store/action/index";
 
@@ -11,15 +11,11 @@ const Home = () => {
 		dispatch(getProducts())
 	}, [dispatch]);
 
-
 	return (
 		<div>
-			<HeroSection />
 			{products ? (
 				<ProductsComponent data={products} type="card"/>
 			) : <p>Loading . . .</p>}
-
-			<Footer />
 		</div>
 	)
 };

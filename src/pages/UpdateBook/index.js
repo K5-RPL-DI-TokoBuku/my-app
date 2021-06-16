@@ -22,7 +22,16 @@ const FormUpdateBook = ({data}) => {
 
 	let str_price = `Rp. ${convertToDuit(price | 0)}`
 
-	const handleSubmit = () =>{
+	useEffect(() => {
+		console.log("Form", title)
+		// eslint-disable-next-line
+	}, [data])
+
+	
+	
+
+	const handleSubmit = (e) =>{
+		e.preventDefault()
 		const param = {
 			name: title,
             author: pengarang,
@@ -38,9 +47,12 @@ const FormUpdateBook = ({data}) => {
 		axios.put(
 			url, 
 			param, 
-			{headers: {'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSWNobGFzdWwgQW1hbCIsImVtYWlsIjoiaWNobGFzdWwwODk5QGdtYWlsLmNvbSIsInVzZXJJRCI6IjYwNzU5YTZkYWEyZTdjM2E2YzM2NzVjYiIsImlhdCI6MTYyMjQyNjY2NX0.ZPBOUDER8LZLGWl1uFB8wabrpX6TCPBF2qjIt90KGwY' }}).then(res => {
-				window.location.replace('/products');
-            }).catch(err => {
+			{headers: {'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSWNobGFzdWwgQW1hbCIsImVtYWlsIjoiaWNobGFzdWwwODk5QGdtYWlsLmNvbSIsInVzZXJJRCI6IjYwNzU5YTZkYWEyZTdjM2E2YzM2NzVjYiIsImlhdCI6MTYyMjQyNjY2NX0.ZPBOUDER8LZLGWl1uFB8wabrpX6TCPBF2qjIt90KGwY' }})
+			.then(res => {
+				// window.location.replace('/');
+				console.log('Succes update data')
+            })
+			.catch(err => {
                 console.log(err)
             })
 
@@ -184,22 +196,21 @@ const FormUpdateBook = ({data}) => {
 
 const UpdateBook = () => {
 	let { id } = useParams();
-	const [data, setData] = useState({})
+	const [data, setData] = useState()
 	let url = `http://localhost:3001/product/${id}`
 
     useEffect(() => {
 		console.log('Haiiklas')
         axios.get(url).then((res) => {
 			setData(res.data.data)
+			console.log(res.data.data)
         })
 		// eslint-disable-next-line
-    },[])
+    }, [])
 
 	return (
 		<Container>
-			{data && (
-				<FormUpdateBook data={data} />
-			)}
+			{data ? <FormUpdateBook data={data} /> : <p>Data not ready</p>}
 		</Container>
 	);
 }
