@@ -12,7 +12,7 @@ const Home = () => {
 	}, [dispatch]);
 
 	return (
-		<div>
+		<div style={{marginTop: '20px'}}>
 			{products ? (
 				<ProductsComponent data={products} type="card"/>
 			) : <p>Loading . . .</p>}

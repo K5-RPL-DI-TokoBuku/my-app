@@ -1,6 +1,11 @@
-import { Home, Login, Register, AddBook, Cart, Products, DetailProduct, UpdateBook, Shipment, Profile, Information, Transaksi } from '../pages';
+import { Home, Login, Register, AddBook, Cart, Products, DetailProduct, UpdateBook, Shipment, Profile, Information, Transaksi, Dasboard } from '../pages';
 
 const routes = [
+  {
+    path: "/dasboard",
+    component: Dasboard,
+    isPublic: false,
+  },
   {
     path: "/transaksi",
     component: Transaksi,

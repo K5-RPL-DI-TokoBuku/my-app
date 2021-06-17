@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Navbar, Nav, Form, FormControl, Button, Container} from "react-bootstrap";
 import { getCookie, setCookie } from '../utils/cookie';
 import { FaShippingFast, FaDiceD6, FaInfoCircle, FaShoppingCart, FaUserCircle } from "react-icons/fa";
@@ -10,9 +10,21 @@ const Header = () => {
 
 	const cart = useSelector((state) => state.userReducer.userCart);
 
+	const [admin, setAdmin] = useState(false)
+
 	useEffect(() => {
 		console.log('All iss weelll')
 	}, [cart])
+
+	useEffect(() => {
+		if(token){
+			const userData = JSON.parse(getCookie('userData'))
+			if (userData.ID === '60bd984e0f3d611d0852a6a4'){
+				setAdmin(true)
+			}
+		}
+		// eslint-disable-next-line
+	}, [admin])
     
 	const handleLogout = (e) => {
 		// Hapus Cookie
@@ -24,14 +36,41 @@ const Header = () => {
 		var delayInMilliseconds = 1000; //1 second
 
 		setTimeout(function() {
-		window.location.replace('/login');
-		//your code to be executed after 1 second
+			window.location.replace('/login');
+			//your code to be executed after 1 second
 		}, delayInMilliseconds);
 	}
 
+	if(admin){
+		return (
+			<Navbar sticky="top" expand="lg" style={{ backgroundColor: '#242582'}}>
+				<Navbar.Brand href="/">
+					<h3  style={{color: 'white'}}><FaDiceD6 />Toko Buku</h3>
+				</Navbar.Brand>
+				<Navbar.Toggle aria-controls="basic-navbar-nav" />
+				<Navbar.Collapse id="basic-navbar-nav">
+					<Nav className="mr-auto">
+						{token && (
+							<Form inline>
+								<FormControl type="text" placeholder="Search" className="mr-sm-2" />
+								<Button variant="outline-light">Search</Button>
+							</Form>
+
+						)}
+					</Nav>
+					<Form inline>
+						<div>
+							<Button onClick={(e) => handleLogout(e)} style={{ margin: '10px', backgroundColor: '#f64c72', border: 'none'}}>Logout</Button>
+						</div>
+						
+					</Form>
+				</Navbar.Collapse>
+			</Navbar>
+		)
+	}
 
 	return (
-		<Navbar sticky="top" expand="lg" style={{ backgroundColor: '#242582',  marginBottom: '20px'}}>
+		<Navbar sticky="top" expand="lg" style={{ backgroundColor: '#242582'}}>
 			<Container>
 				<Navbar.Brand href="/">
 					<h3  style={{color: 'white'}}><FaDiceD6 />Toko Buku</h3>

@@ -10,3 +10,4 @@ export { default as Shipment } from "./Shipment";
 export { default as Profile } from "./Profile";
 export { default as Information } from "./Information";
 export { default as Transaksi } from "./Transaksi";
+export { default as Dasboard } from './Dasboard';

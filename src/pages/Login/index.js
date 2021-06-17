@@ -44,7 +44,11 @@ const Login = () => {
           var delayInMilliseconds = 1000; //1 second
 
           setTimeout(function() {
-            window.location.replace('/');
+            if(response.ID === '60bd984e0f3d611d0852a6a4'){
+              window.location.replace('/dasboard');
+            } else {
+              window.location.replace('/');
+            }
             //your code to be executed after 1 second
           }, delayInMilliseconds);
 

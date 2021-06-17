@@ -2,6 +2,7 @@
 export default {
   LOGIN: "/auth/login",
   REGISTER_USER: "/auth/register",
+  GET_ALL_USER: "/auth/users",
   GET_DETAIL_USER: "/auth/userdata",
   UPDATE_ALAMAT: "/auth/user_address",
   GET_CART_USER: "/auth/cart",
@@ -15,5 +16,6 @@ export default {
   POST_CITY_IN_PROVINCE: "/transaction/get_city_in_province",
   CHECK_ONGKIR: "/transaction/check_ongkir",
   BUAT_TRANSAKSI: "/transaction/buat_transaksi",
-  GETALLTRANSAKSI: "/transaction"
+  GETALLTRANSAKSI: "/transaction",
+  GETALLTRANSAKSI2: "/transaction/all"
 };

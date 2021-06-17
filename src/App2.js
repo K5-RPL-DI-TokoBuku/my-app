@@ -4,9 +4,8 @@ import './App.css';
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import routes from './Config/routes';
 import { isUserAuthenticated } from './utils/cookie';
-import Header from './Component/Header'
+import {Header} from './Component'
 // import {useSelector} from 'react-redux'
-
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
@@ -39,6 +38,16 @@ const App = () => {
               />
             );
           }
+
+          // if (route.path === '/dasboard' && !isAdmin() ){
+          //   return (
+          //     <Route 
+          //       path={'/'}
+          //       component={Home}
+          //       key={'/'}  />
+          //   )
+          // }
+
           return (
             <PrivateRoute
               path={route.path}

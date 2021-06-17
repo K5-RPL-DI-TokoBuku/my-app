@@ -61,6 +61,14 @@ const getAllTransaksi = () => {
     return BaseService.get(API.GETALLTRANSAKSI)
 }
 
+const getAllUser = () => {
+    return BaseService.get(API.GET_ALL_USER)
+}
+
+const getAllTransaksi2 = () => {
+    return BaseService.get(API.GETALLTRANSAKSI2)
+}
+
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
@@ -74,5 +82,7 @@ export default {
     postCityInProvince,
     checkOngkir,
     buatTransaksi,
-    getAllTransaksi
+    getAllTransaksi,
+    getAllUser,
+    getAllTransaksi2
 }

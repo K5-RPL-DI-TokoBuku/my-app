@@ -6,12 +6,12 @@ import { convertToDuit } from '../utils/functions';
 import { useDispatch } from "react-redux";
 import { addToCartUser, getProducts } from "../store/action";
 import {productService} from '../services';
-
+import { FaTrash, FaEdit } from "react-icons/fa";
 
 const ProductsComponent = (props) => {
 	const dispatch = useDispatch();
 
-    const {data, type} = props
+    const {data, type, handleUpdate} = props
     const [dataUpdate, setDataUpdate] = useState({})
 
     const [modalDelete, setModalDelete] = useState(false)
@@ -36,11 +36,13 @@ const ProductsComponent = (props) => {
                 console.log("result nya: \n", res)
                 setMessage('Success Delete Product')
                 dispatch(getProducts())
+                props.handleUpdate()
             })
     }
 
     const handleSubmitUpdate = () => {
         console.log(dataUpdate)
+        
         setModalUpdate(false)
         productService
             .updateProduct(dataUpdate)
@@ -48,6 +50,7 @@ const ProductsComponent = (props) => {
                 console.log("result nya: \n", res)
                 setMessage('Update Success!')
                 dispatch(getProducts())
+                props.handleUpdate()
             })
     }
 
@@ -112,7 +115,7 @@ const ProductsComponent = (props) => {
                     <th>Judul Buku</th>
                     <th>Penulis</th>
                     <th>Harga</th>
-                    <th>Stok Barang</th>
+                    <th>Stok</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -141,8 +144,8 @@ const ProductsComponent = (props) => {
                                 <Button variant="outline-primary" onClick={(e) => {
                                      setModalUpdate(true)
                                      setDataUpdate(product)
-                                }}>Update</Button>
-                                <Button variant="outline-danger" onClick={(e) => setModalDelete({'id': _id, 'show': true})}>Delete</Button>
+                                }}><FaEdit /></Button>
+                                <Button variant="outline-danger" onClick={(e) => setModalDelete({'id': _id, 'show': true})}><FaTrash /></Button>
                             </td>
                         </tr>
                     );

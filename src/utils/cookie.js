@@ -26,4 +26,16 @@ const isUserAuthenticated = () => {
   return false;
 };
 
-export { isUserAuthenticated, getCookie, setCookie };
+const isAdmin = () =>{
+  if(getCookie('token')){
+    const userData = JSON.parse(getCookie('userData'))
+    if (userData.ID === '60bd984e0f3d611d0852a6a4') {
+      return true
+    } else {
+      return false
+    }
+  }
+  return false
+}
+
+export { isUserAuthenticated, getCookie, setCookie, isAdmin };
