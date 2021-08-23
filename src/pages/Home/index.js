@@ -1,23 +1,43 @@
-import React, {useEffect} from "react";
-import {ProductsComponent} from '../../Component'
-import { useSelector, useDispatch } from "react-redux";
-import { getProducts } from "../../store/action/index";
+import React from "react";
+import Jumbotron from './Jumbotron'
+import Courses from './Courses'
+// import logo from './image1.jpg'
+import Testimony from './Testimony'
+import Footer from './Footer'
+
 
 const Home = () => {
-	const products = useSelector((state) => state.productReducer.products);
-	let dispatch = useDispatch();
-
-	useEffect(() => {
-		dispatch(getProducts())
-	}, [dispatch]);
-
 	return (
-		<div style={{marginTop: '20px'}}>
-			{products ? (
-				<ProductsComponent data={products} type="card"/>
-			) : <p>Loading . . .</p>}
-		</div>
-	)
+    <div>
+      
+
+      {/* <Container>
+        <Image src={logo} rounded />
+      </Container> */}
+
+      {/* Jumbotron */}
+      <Jumbotron />
+
+
+      {/* Courses */}
+      <Courses />
+
+
+      {/* Books */}
+
+
+      {/* Kategory Books */}
+
+
+      {/* Testimony */}
+      <Testimony />
+
+
+      {/* Footer */}
+      <Footer />
+
+    </div>
+  )
 };
 
 export default Home;

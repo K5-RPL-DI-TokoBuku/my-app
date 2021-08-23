@@ -10,8 +10,8 @@ const Header = () => {
 
 	const cart = useSelector((state) => state.userReducer.userCart);
 
+	
 	const [admin, setAdmin] = useState(false)
-
 	useEffect(() => {
 		console.log('All iss weelll')
 	}, [cart])

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ProductsComponent} from '../../Component';
+import {ProductsComponent, Courses} from '../../Component';
 import { Card, Button, Table } from 'react-bootstrap';
 import { convertToRupiah } from '../../utils/functions';
 import { productService, userService } from '../../services';
@@ -123,6 +123,14 @@ const ComponentDasboard = ({page}) => {
                 </div>
             )}
 
+            {page === 'Courses' ? (
+                <div>
+                    <h3>All Courses</h3>
+                    <br></br>
+                    <Courses />
+                </div>
+            ) : <p>You dont have course</p>}
+
         </div>
         
     )
@@ -142,6 +150,10 @@ const Dasboard = () => {
         {
             title: 'Transactions',
             icon: <FaShippingFast style={{margin: '10px'}}/>
+        },
+        {
+            title: 'Courses',
+            icon: <FaShoppingCart style={{margin: '10px'}}/>
         },
     ]
 

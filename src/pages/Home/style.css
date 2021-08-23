@@ -1,0 +1,61 @@
+.wrapper {
+    /* background-color: orange; */
+    display: grid;
+    align-items: center;
+
+
+    background-image: url("https://images.unsplash.com/photo-1622258416235-d0390821fc08?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"); /* The image used */
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 500px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+
+}
+
+.content-wrapper {
+    /* border:1px solid white; */
+}
+
+.mycontainer {
+    /* background-color: rgb(36, 4, 124); */
+
+
+}
+
+.content{
+    background-color: white;
+    padding: 40px 20px;
+    
+
+}
+
+.search-wrapper{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-start;
+    border-radius: 20px;
+    width: fit-content;
+    width: 100%;
+
+}
+
+.search-form{
+    border: 0;
+    background-color: whitesmoke;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 60%;
+
+    
+}
+
+.title-header{
+    text-align: center;
+}
+
+.testimony-wrapper{
+    display: flex;
+    align-items: center;
+}
