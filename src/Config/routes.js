@@ -1,4 +1,4 @@
-import { Home, Login, Register, AddBook, Cart, Products, DetailProduct, UpdateBook, Shipment, Profile, Information, Transaksi, Dasboard } from '../pages';
+import {Home, Authentifikasi,  AddBook, Cart, Products, DetailProduct, UpdateBook, Shipment, Profile, Information, Transaksi, Dasboard } from '../pages';
 
 const routes = [
   {
@@ -32,16 +32,6 @@ const routes = [
     isPublic: false,
   },
   {
-    path: "/login",
-    component: Login,
-    isPublic: true,
-  },
-  {
-    path: "/register",
-    component: Register,
-    isPublic: true,
-  },
-  {
     path: "/cart/shipment",
     component: Shipment,
     isPublic: false,
@@ -60,6 +50,11 @@ const routes = [
     path: "/update-book/:id",
     component: UpdateBook,
     isPublic: false,
+  },
+  {
+    path: "/auth",
+    component: Authentifikasi,
+    isPublic: true
   },
   {
     path: "/",

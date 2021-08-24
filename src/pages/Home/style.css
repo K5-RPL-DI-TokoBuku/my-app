@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Bungee&family=Monoton&family=Press+Start+2P&display=swap');
+/* font-family: 'Bungee', cursive;
+font-family: 'Monoton', cursive;
+font-family: 'Press Start 2P', cursive; 
+font-family: 'Press Start 2P', cursive; */
+
 .wrapper {
     /* background-color: orange; */
     display: grid;
@@ -58,4 +64,46 @@
 .testimony-wrapper{
     display: flex;
     align-items: center;
+}
+
+.footerHead{
+    background: rgba(37, 37, 37, 0.938);
+    color: white;
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+
+.footerCopyright {
+    background: rgb(0, 0, 0);
+    color: white;
+    padding-top: 20px;
+}
+
+ul{
+    display: flex;
+    list-style-type:none;
+}
+
+li{
+    margin: 0 5px
+}
+
+
+.cocacola {
+    font-family: 'Bungee', cursive;
+
+}
+
+.fanta{
+    font-family: 'Monoton', cursive;
+
+}
+
+.sprite{
+    font-family: 'Press Start 2P', cursive;
+    
+}
+
+.fruit {
+    font-family: 'Press Start 2P', cursive;
 }

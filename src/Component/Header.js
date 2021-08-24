@@ -110,12 +110,8 @@ const Header = () => {
 							{/* <FormControl type="text" placeholder="Search" className="mr-sm-2" /> */}
 							<Button onClick={(e) => {
 								e.preventDefault()
-								window.location.replace('/login')
+								window.location.replace('/auth')
 							}} style={{marginRight:'20px'}} variant="danger">Login</Button>
-							<Button  onClick={(e) => {
-								e.preventDefault()
-								window.location.replace('/register')
-							}} variant="outline-light">Register</Button>
 						</div>
 						)}
 					</Form>

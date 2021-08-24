@@ -1,0 +1,9 @@
+.progress{
+    width: 25%;
+    margin : 0 5px;
+    box-sizing: border-box;
+}
+
+.progress:hover{
+    
+}
